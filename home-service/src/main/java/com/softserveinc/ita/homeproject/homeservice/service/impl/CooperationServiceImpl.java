@@ -45,16 +45,8 @@ public class CooperationServiceImpl implements CooperationService {
                 fromDB.setName(updateCooperationDto.getName());
             }
 
-            if (updateCooperationDto.getPhone() != null) {
-                fromDB.setPhones(updateCooperationDto.getPhone());
-            }
-
-            if (updateCooperationDto.getEmail() != null) {
-                fromDB.setEmails(updateCooperationDto.getEmail());
-            }
-
             if (updateCooperationDto.getAddressCooperation() != null) {
-                fromDB.setAddressesCooperation(updateCooperationDto.getAddressCooperation());
+                fromDB.setAddresses(updateCooperationDto.getAddressCooperation());
             }
 
             if (updateCooperationDto.getUSREO() != null) {

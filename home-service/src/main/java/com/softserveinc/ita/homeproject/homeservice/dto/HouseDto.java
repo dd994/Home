@@ -1,6 +1,7 @@
 package com.softserveinc.ita.homeproject.homeservice.dto;
 
 import com.softserveinc.ita.homeproject.homedata.entity.Addresses;
+import com.softserveinc.ita.homeproject.homedata.entity.Cooperation;
 import lombok.*;
 
 @Getter
@@ -15,5 +16,9 @@ public class HouseDto extends BaseDto {
     private String houseArea;
 
     private Integer adjoiningArea;
+
+    private Addresses address;
+
+    private Cooperation cooperation;
 
 }

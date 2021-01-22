@@ -1968,7 +1968,6 @@ components:
         - house_area
         - adjoining_area
         - address
-        - cooperation_id
       type: object
       properties:
         quantityFlat:
@@ -2181,10 +2180,9 @@ components:
         - name
         - USREO
         - IBAN
-        - addressCooperation
+        - address
         - emailCooperation
         - phoneCooperation
-        - houses
       type: object
       properties:
         name:
@@ -2202,20 +2200,13 @@ components:
           example: "Something else"
           minLength: 1
           maxLength: 34
-        addressCooperation:
+        address:
+          type: object
           $ref: '#/components/schemas/Addresses'
         houses:
           type: array
           items:
             $ref: "#/components/schemas/CreateHouse"
-        phoneCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/PhoneCooperation"
-        emailCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/EmailCooperation"
     ReadCooperation:
       allOf:
         - $ref: '#/components/schemas/BaseView'
@@ -2236,20 +2227,12 @@ components:
           example: "Something else"
           minLength: 1
           maxLength: 50
-        addressCooperation:
+        address:
           $ref: '#/components/schemas/Addresses'
         houses:
           type: array
           items:
             $ref: "#/components/schemas/CreateHouse"
-        phoneCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/PhoneCooperation"
-        emailCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/EmailCooperation"
     UpdateCooperation:
       allOf:
         - $ref: '#/components/schemas/BaseView'
@@ -2270,20 +2253,12 @@ components:
           example: "Something else"
           minLength: 1
           maxLength: 50
-        addressCooperation:
+        address:
           $ref: '#/components/schemas/Addresses'
         houses:
           type: array
           items:
             $ref: "#/components/schemas/CreateHouse"
-        phoneCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/PhoneCooperation"
-        emailCooperation:
-          type: array
-          items:
-            $ref: "#/components/schemas/EmailCooperation"
     Addresses:
       type: object
       properties:
@@ -2307,7 +2282,7 @@ components:
           example: "Kirova"
           minLength: 1
           maxLength: 25
-        housingNumber:
+        houseBlock:
           type: string
           example: "2/B"
           minLength: 1
@@ -2318,25 +2293,8 @@ components:
           minLength: 1
           maxLength: 50
         zipCode:
-          type: integer
+          type: string
           example: 52956
-    PhoneCooperation:
-      type: object
-      properties:
-        phone:
-          type: string
-          example: "+380506617305"
-          minLength: 10
-          maxLength: 13
-    EmailCooperation:
-      type: object
-      properties:
-        email:
-          pattern: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
-          type: string
-          example: "p.t.z@gmail.com"
-          minLength: 3
-          maxLength: 254
     Voting:
       required:
         - name

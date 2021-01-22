@@ -19,10 +19,6 @@ public class CooperationDto extends BaseDto {
 
     private String name;
 
-    private List<Phone> phone;
-
-    private List<Email> email;
-
     private Addresses addressCooperation;
 
     private List<Houses> houses;

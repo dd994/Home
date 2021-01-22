@@ -24,7 +24,7 @@ public class Addresses extends BaseEntity {
     private String street;
 
     @Column
-    private String housingNumber;
+    private String houseBlock;
 
     @Column
     private String houseNumber;
