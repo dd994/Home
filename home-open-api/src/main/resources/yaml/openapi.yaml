@@ -1586,6 +1586,47 @@ paths:
         default:
           $ref: '#/components/responses/InternalServerError'
   /cooperation/{cooperation_id}/houses:
+    post:
+      tags:
+        - houses
+      summary: Create house
+      description: Create a new house
+      operationId: createHouse
+      parameters:
+        - name: cooperation_id
+          in: "path"
+          description: "Use 1 for testing."
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      requestBody:
+        description: Create a new house
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHouse'
+        required: true
+      responses:
+        '201':
+          description: Successful created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReadHouse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
     get:
       tags:
         - houses
@@ -2142,12 +2183,8 @@ components:
         lastName:
           type: string
           example: Petrov
-        email:
-          type: string
-          example: home@gmail.com
         contact:
-          type: string
-          example: "+380506617305"
+          $ref: '#/components/schemas/Contact'
     UpdateUser:
       allOf:
         - $ref: '#/components/schemas/BaseView'
@@ -2166,13 +2203,7 @@ components:
           minLength: 1
           maxLength: 50
         contact:
-          type: string
-          example: "+380506617305"
-          minLength: 10
-          maxLength: 13
-        contacts:
-          type: string
-          example: "+380506617305"
+          $ref: '#/components/schemas/Contact'
     CreateCooperation:
       allOf:
         - $ref: '#/components/schemas/BaseView'
@@ -2181,8 +2212,6 @@ components:
         - USREO
         - IBAN
         - address
-        - emailCooperation
-        - phoneCooperation
       type: object
       properties:
         name:
@@ -2201,7 +2230,6 @@ components:
           minLength: 1
           maxLength: 34
         address:
-          type: object
           $ref: '#/components/schemas/Addresses'
         houses:
           type: array
@@ -2259,6 +2287,29 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/CreateHouse"
+    Contact:
+      type: object
+      properties:
+        email:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        phone:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+    Email:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "p.t.z@gmail.com"
+    Phone:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+380506617305"
     Addresses:
       type: object
       properties:

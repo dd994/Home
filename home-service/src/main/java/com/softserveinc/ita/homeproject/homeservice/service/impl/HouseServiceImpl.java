@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class HouseServiceImpl implements HouseService {
+
     private final HousesRepository housesRepository;
     private final HouseMapper houseMapper;
-
 
     @Override
     @Transactional
@@ -28,16 +28,15 @@ public class HouseServiceImpl implements HouseService {
             return houseMapper.convertEntityToDto(houses);
         }
 
-
     @Override
     @Transactional
     public HouseDto updateHouse(Long id, HouseDto updateHouseDto) {
         if (housesRepository.findById(id).isPresent()) {
 
             Houses fromDB = housesRepository.findById(id).get();
-//            if (updateHouseDto.getAddresses() != null) {
-//                fromDB.setAddress(updateHouseDto.getAddresses());
-//            }
+            if (updateHouseDto.getAddress() != null) {
+                fromDB.setAddress(updateHouseDto.getAddress());
+           }
 
             if (updateHouseDto.getQuantityFlat() != null) {
                 fromDB.setQuantityFlat(updateHouseDto.getQuantityFlat());

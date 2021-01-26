@@ -2,7 +2,6 @@ package com.softserveinc.ita.homeproject.application.apiservice;
 
 import com.softserveinc.ita.homeproject.api.CooperationApiService;
 import com.softserveinc.ita.homeproject.application.mapper.*;
-import com.softserveinc.ita.homeproject.homedata.repository.HousesRepository;
 import com.softserveinc.ita.homeproject.homeservice.dto.CooperationDto;
 import com.softserveinc.ita.homeproject.homeservice.dto.HouseDto;
 import com.softserveinc.ita.homeproject.homeservice.service.CooperationService;
@@ -42,6 +41,17 @@ public class CooperationApiServiceImpl implements CooperationApiService {
     }
 
     @Override
+    public Response createHouse(Long cooperationId, CreateHouse createHouse) {
+
+        HouseDto houseDto = createHouseDtoMapper.convertViewToDto(createHouse);
+        HouseDto readHouseDto = houseService.createHouse(houseDto);
+        ReadHouse readHouse = readHouseDtoMapper.convertDtoToView(readHouseDto);
+
+        return Response.status(Response.Status.CREATED).entity(readHouse).build();
+    }
+
+
+    @Override
     public Response getCooperation(Long cooperationId) {
 
         CooperationDto cooperationDto = cooperationService.getCooperationById(cooperationId);
@@ -57,7 +67,6 @@ public class CooperationApiServiceImpl implements CooperationApiService {
 
         return Response.ok().entity(houseApiResponse).build();
     }
-
 
     @Override
     public Response queryCooperation(@Min(1) Integer pageNumber, @Min(0) @Max(10) Integer pageSize) {
@@ -78,7 +87,6 @@ public class CooperationApiServiceImpl implements CooperationApiService {
         return Response.status(Response.Status.OK).entity(readHouseList).build();
     }
 
-
     @Override
     public Response removeCooperation(Long cooperationId) {
 
@@ -91,7 +99,6 @@ public class CooperationApiServiceImpl implements CooperationApiService {
         houseService.deleteById(houseId);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
-
 
     @Override
     public Response updateCooperation(Long cooperationId, UpdateCooperation updateCooperation) {
@@ -110,6 +117,5 @@ public class CooperationApiServiceImpl implements CooperationApiService {
         ReadHouse response = readHouseDtoMapper.convertDtoToView(readHouseDto);
         return Response.ok().entity(response).build();
     }
-
 
 }

@@ -21,7 +21,6 @@ public class Houses extends BaseEntity {
     @Column(name = "adjoining_area")
     private Integer adjoiningArea;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Addresses address;
