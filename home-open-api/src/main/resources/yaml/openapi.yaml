@@ -511,8 +511,7 @@ components:
           type: string
           example: home@gmail.com
         contact:
-          type: string
-          example: "+380506617305"
+          $ref: '#/components/schemas/ReadContact'
     UpdateUser:
       allOf:
         - $ref: '#/components/schemas/BaseView'
@@ -536,5 +535,47 @@ components:
           minLength: 10
           maxLength: 13
         contacts:
+          type: string
+          example: "+380506617305"
+
+    ContactType:
+      description: Indicates the type of contact.
+      type: string
+      enum: &contact_type_values
+        - email
+        - phone
+
+    ReadContact:
+      allOf:
+        - $ref: '#/components/schemas/BaseView'
+      type: object
+      discriminator:
+        propertyName: contact_type
+        mapping:
+          email: '#/components/schemas/ReadEmailContact'
+          phone: '#/components/schemas/ReadPhoneContact'
+      required:
+        - contact_type
+      properties:
+        contact_type:
+          $ref: '#/components/schemas/ContactType'
+        primary:
+          type: boolean
+
+    ReadEmailContact:
+      allOf:
+        - $ref: '#/components/schemas/ReadContact'
+      type: object
+      properties:
+        email:
+          type: string
+          example: home@gmail.com
+
+    ReadPhoneContact:
+      allOf:
+        - $ref: '#/components/schemas/ReadContact'
+      type: object
+      properties:
+        phone:
           type: string
           example: "+380506617305"
